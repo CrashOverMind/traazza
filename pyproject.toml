@@ -28,8 +28,8 @@ firma = ["signxml>=4", "lxml>=4.9", "cryptography>=41"]
 dev = ["pytest>=8", "segno>=1.6", "xmlschema>=3", "requests>=2.31", "signxml>=4", "lxml>=4.9", "cryptography>=41"]
 
 [project.urls]
-Homepage = "https://traazza.com"
-Source = "https://github.com/traazza/traazza"
+Homepage = "https://github.com/CrashOverMind/traazza"
+Source = "https://github.com/CrashOverMind/traazza"
 
 [project.scripts]
 traazza = "traazza.cli:main"
