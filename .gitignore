@@ -179,3 +179,14 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# ====== SECRETOS - NUNCA subir a GitHub ======
+*.pem
+*.pfx
+*.p12
+*.key
+
+# Scripts locales con mi NIF y contraseñas
+convertir.py
+diagnostico.py
+prueba_envio.py

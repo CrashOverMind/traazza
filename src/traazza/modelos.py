@@ -7,11 +7,23 @@ XML necesita, pero NO entran en la huella.
 """
 
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from typing import Optional
 
 from . import huella as _huella
 from .errores import DatosInvalidosError
+
+
+def ahora_iso() -> str:
+    """Fecha-hora actual con huso, en el formato ISO 8601 que acepta la AEAT.
+
+    Sin microsegundos y con el desfase horario (p. ej. 2026-07-01T14:30:00+02:00).
+    La AEAT exige que FechaHoraHusoGenRegistro sea el momento actual (margen de
+    240 s) y con este formato exacto; los microsegundos o un huso mal escrito
+    provocan los errores 2004 / 1244.
+    """
+    return datetime.now(timezone.utc).astimezone().replace(microsecond=0).isoformat()
 
 
 def formatear_importe(valor) -> str:
@@ -169,7 +181,7 @@ class Cadena:
         return registro
 
     def alta(self, *, num_serie, fecha_expedicion, tipo_factura,
-             cuota_total, importe_total, fecha_hora_huso,
+             cuota_total, importe_total, fecha_hora_huso=None,
              nombre_razon_emisor="", descripcion_operacion="",
              desglose=None, destinatario_nombre=None,
              destinatario_nif=None) -> RegistroAlta:
@@ -180,7 +192,7 @@ class Cadena:
             tipo_factura=tipo_factura,
             cuota_total=cuota_total,
             importe_total=importe_total,
-            fecha_hora_huso=fecha_hora_huso,
+            fecha_hora_huso=fecha_hora_huso or ahora_iso(),
             nombre_razon_emisor=nombre_razon_emisor or self.emisor.nombre,
             descripcion_operacion=descripcion_operacion,
             desglose=desglose or [],
@@ -190,11 +202,11 @@ class Cadena:
         return self._siguiente(reg)
 
     def anulacion(self, *, num_serie, fecha_expedicion,
-                  fecha_hora_huso) -> RegistroAnulacion:
+                  fecha_hora_huso=None) -> RegistroAnulacion:
         reg = RegistroAnulacion(
             id_emisor=self.emisor.nif,
             num_serie=num_serie,
             fecha_expedicion=fecha_expedicion,
-            fecha_hora_huso=fecha_hora_huso,
+            fecha_hora_huso=fecha_hora_huso or ahora_iso(),
         )
         return self._siguiente(reg)

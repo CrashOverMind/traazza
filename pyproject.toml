@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "traazza"
-version = "0.0.2"
+version = "0.0.3"
 description = "Librería open-source para generar registros de facturación Verifactu (huella encadenada, QR y XML) en tu propio software, sin intermediarios."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -28,8 +28,8 @@ firma = ["signxml>=4", "lxml>=4.9", "cryptography>=41"]
 dev = ["pytest>=8", "segno>=1.6", "xmlschema>=3", "requests>=2.31", "signxml>=4", "lxml>=4.9", "cryptography>=41"]
 
 [project.urls]
-Homepage = "https://github.com/CrashOverMind/traazza"
-Source = "https://github.com/CrashOverMind/traazza"
+Homepage = "https://traazza.com"
+Source = "https://github.com/traazza/traazza"
 
 [project.scripts]
 traazza = "traazza.cli:main"

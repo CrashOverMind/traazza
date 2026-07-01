@@ -59,6 +59,14 @@ print(xml.registro_alta_xml(factura, sistema))# XML del registro de alta
 Cada registro que crea la `Cadena` incorpora automáticamente la huella del
 anterior: así se garantiza la trazabilidad y la inalterabilidad.
 
+> **Encadenar entre ejecuciones (producción).** Una `Cadena` nueva empieza
+> vacía y marca su primer registro como «primero». En un programa real que
+> arranca y para, debes **guardar la huella del último registro** (en tu base
+> de datos) y arrancar la siguiente cadena desde ahí, o la AEAT devolverá el
+> aviso 2007 («no debe informarse como primer registro»). El campo
+> `fecha_hora_huso` es opcional: si no lo pasas, se rellena con la hora actual
+> en el formato exacto que exige la AEAT (sin microsegundos, con huso).
+
 ---
 
 ## Qué sabe hacer
