@@ -1,0 +1,958 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:sf="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd" targetNamespace="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd" elementFormDefault="qualified">
+<import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="http://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd"/>
+<complexType name="CabeceraType">
+<sequence>
+<element name="ObligadoEmision" type="sf:PersonaFisicaJuridicaESType"/>
+<element name="Representante" type="sf:PersonaFisicaJuridicaESType" minOccurs="0"/>
+<element name="RemisionVoluntaria" minOccurs="0">
+<complexType>
+<sequence>
+<element name="FechaFinVeriFactu" type="sf:fecha" minOccurs="0"/>
+<element name="Incidencia" type="sf:IncidenciaType" minOccurs="0"/>
+</sequence>
+</complexType>
+</element>
+<element name="RemisionRequerimiento" minOccurs="0">
+<complexType>
+<sequence>
+<element name="RefRequerimiento" type="sf:TextMax18Type"/>
+<element name="FinRequerimiento" type="sf:FinRequerimientoType" minOccurs="0"/>
+</sequence>
+</complexType>
+</element>
+</sequence>
+</complexType>
+<element name="RegistroAlta" type="sf:RegistroFacturacionAltaType"/>
+<element name="RegistroAnulacion" type="sf:RegistroFacturacionAnulacionType"/>
+<complexType name="DatosPresentacionType">
+<sequence>
+<element name="NIFPresentador" type="sf:NIFType"/>
+<element name="TimestampPresentacion" type="dateTime"/>
+</sequence>
+</complexType>
+<complexType name="DatosPresentacion2Type">
+<sequence>
+<element name="NIFPresentador" type="sf:NIFType"/>
+<element name="TimestampPresentacion" type="dateTime"/>
+<element name="IdPeticion" type="sf:TextMax20Type"/>
+</sequence>
+</complexType>
+<complexType name="PeriodoImputacionType">
+<sequence>
+<element name="Ejercicio" type="sf:YearType"/>
+<element name="Periodo" type="sf:TipoPeriodoType"/>
+</sequence>
+</complexType>
+<complexType name="IDFacturaExpedidaBCType">
+<sequence>
+<element name="IDEmisorFactura" type="sf:NIFType"/>
+<element name="NumSerieFactura" type="sf:TextoIDFacturaType"/>
+<element name="FechaExpedicionFactura" type="sf:fecha"/>
+</sequence>
+</complexType>
+<complexType name="IDFacturaExpedidaBajaType">
+<sequence>
+<element name="IDEmisorFacturaAnulada" type="sf:NIFType"/>
+<element name="NumSerieFacturaAnulada" type="sf:TextoIDFacturaType"/>
+<element name="FechaExpedicionFacturaAnulada" type="sf:fecha"/>
+</sequence>
+</complexType>
+<complexType name="RegistroFacturacionAltaType">
+<sequence>
+<element name="IDVersion" type="sf:VersionType"/>
+<element name="IDFactura" type="sf:IDFacturaExpedidaType"/>
+<element name="RefExterna" type="sf:TextMax60Type" minOccurs="0"/>
+<element name="NombreRazonEmisor" type="sf:TextMax120Type"/>
+<element name="Subsanacion" type="sf:SubsanacionType" minOccurs="0"/>
+<element name="RechazoPrevio" type="sf:RechazoPrevioType" minOccurs="0"/>
+<element name="TipoFactura" type="sf:ClaveTipoFacturaType"/>
+<element name="TipoRectificativa" type="sf:ClaveTipoRectificativaType" minOccurs="0"/>
+<element name="FacturasRectificadas" minOccurs="0">
+<complexType>
+<sequence>
+<element name="IDFacturaRectificada" type="sf:IDFacturaARType" maxOccurs="1000"/>
+</sequence>
+</complexType>
+</element>
+<element name="FacturasSustituidas" minOccurs="0">
+<complexType>
+<sequence>
+<element name="IDFacturaSustituida" type="sf:IDFacturaARType" maxOccurs="1000"/>
+</sequence>
+</complexType>
+</element>
+<element name="ImporteRectificacion" type="sf:DesgloseRectificacionType" minOccurs="0"/>
+<element name="FechaOperacion" type="sf:fecha" minOccurs="0"/>
+<element name="DescripcionOperacion" type="sf:TextMax500Type"/>
+<element name="FacturaSimplificadaArt7273" type="sf:SimplificadaCualificadaType" minOccurs="0"/>
+<element name="FacturaSinIdentifDestinatarioArt61d" type="sf:CompletaSinDestinatarioType" minOccurs="0"/>
+<element name="Macrodato" type="sf:MacrodatoType" minOccurs="0"/>
+<element name="EmitidaPorTerceroODestinatario" type="sf:TercerosODestinatarioType" minOccurs="0"/>
+<element name="Tercero" type="sf:PersonaFisicaJuridicaType" minOccurs="0"/>
+<element name="Destinatarios" minOccurs="0">
+<complexType>
+<sequence>
+<element name="IDDestinatario" type="sf:PersonaFisicaJuridicaType" maxOccurs="1000"/>
+</sequence>
+</complexType>
+</element>
+<element name="Cupon" type="sf:CuponType" minOccurs="0"/>
+<element name="Desglose" type="sf:DesgloseType"/>
+<element name="CuotaTotal" type="sf:ImporteSgn12.2Type"/>
+<element name="ImporteTotal" type="sf:ImporteSgn12.2Type"/>
+<element name="Encadenamiento">
+<complexType>
+<choice>
+<element name="PrimerRegistro" type="sf:PrimerRegistroCadenaType"/>
+<element name="RegistroAnterior" type="sf:EncadenamientoFacturaAnteriorType"/>
+</choice>
+</complexType>
+</element>
+<element name="SistemaInformatico" type="sf:SistemaInformaticoType"/>
+<element name="FechaHoraHusoGenRegistro" type="dateTime"/>
+<element name="NumRegistroAcuerdoFacturacion" type="sf:TextMax15Type" minOccurs="0"/>
+<element name="IdAcuerdoSistemaInformatico" type="sf:TextMax16Type" minOccurs="0"/>
+<element name="TipoHuella" type="sf:TipoHuellaType"/>
+<element name="Huella" type="sf:TextMax64Type"/>
+<element ref="ds:Signature" minOccurs="0"/>
+</sequence>
+</complexType>
+<complexType name="RegistroFacturacionAnulacionType">
+<sequence>
+<element name="IDVersion" type="sf:VersionType"/>
+<element name="IDFactura" type="sf:IDFacturaExpedidaBajaType"/>
+<element name="RefExterna" type="sf:TextMax60Type" minOccurs="0"/>
+<element name="SinRegistroPrevio" type="sf:SinRegistroPrevioType" minOccurs="0"/>
+<element name="RechazoPrevio" type="sf:RechazoPrevioAnulacionType" minOccurs="0"/>
+<element name="GeneradoPor" type="sf:GeneradoPorType" minOccurs="0"/>
+<element name="Generador" type="sf:PersonaFisicaJuridicaType" minOccurs="0"/>
+<element name="Encadenamiento">
+<complexType>
+<choice>
+<element name="PrimerRegistro" type="sf:PrimerRegistroCadenaType"/>
+<element name="RegistroAnterior" type="sf:EncadenamientoFacturaAnteriorType"/>
+</choice>
+</complexType>
+</element>
+<element name="SistemaInformatico" type="sf:SistemaInformaticoType"/>
+<element name="FechaHoraHusoGenRegistro" type="dateTime"/>
+<element name="TipoHuella" type="sf:TipoHuellaType"/>
+<element name="Huella" type="sf:TextMax64Type"/>
+<element ref="ds:Signature" minOccurs="0"/>
+</sequence>
+</complexType>
+<complexType name="EncadenamientoFacturaAnteriorType">
+<sequence>
+<element name="IDEmisorFactura" type="sf:NIFType"/>
+<element name="NumSerieFactura" type="sf:TextMax60Type"/>
+<element name="FechaExpedicionFactura" type="sf:fecha"/>
+<element name="Huella" type="sf:TextMax64Type"/>
+</sequence>
+</complexType>
+<complexType name="SistemaInformaticoType">
+<sequence>
+<sequence>
+<element name="NombreRazon" type="sf:TextMax120Type"/>
+<choice>
+<element name="NIF" type="sf:NIFType"/>
+<element name="IDOtro" type="sf:IDOtroType"/>
+</choice>
+</sequence>
+<element name="NombreSistemaInformatico" type="sf:TextMax30Type"/>
+<element name="IdSistemaInformatico" type="sf:TextMax2Type"/>
+<element name="Version" type="sf:TextMax50Type"/>
+<element name="NumeroInstalacion" type="sf:TextMax100Type"/>
+<element name="TipoUsoPosibleSoloVerifactu" type="sf:SiNoType"/>
+<element name="TipoUsoPosibleMultiOT" type="sf:SiNoType"/>
+<element name="IndicadorMultiplesOT" type="sf:SiNoType"/>
+</sequence>
+</complexType>
+<complexType name="SistemaInformaticoConsultaType">
+<sequence>
+<sequence>
+<element name="NombreRazon" type="sf:TextMax120Type"/>
+<choice>
+<element name="NIF" type="sf:NIFType"/>
+<element name="IDOtro" type="sf:IDOtroType"/>
+</choice>
+</sequence>
+<element name="NombreSistemaInformatico" type="sf:TextMax30Type" minOccurs="0"/>
+<element name="IdSistemaInformatico" type="sf:TextMax2Type"/>
+<element name="Version" type="sf:TextMax50Type" minOccurs="0"/>
+<element name="NumeroInstalacion" type="sf:TextMax100Type"/>
+<element name="TipoUsoPosibleSoloVerifactu" type="sf:SiNoType" minOccurs="0"/>
+<element name="TipoUsoPosibleMultiOT" type="sf:SiNoType" minOccurs="0"/>
+<element name="IndicadorMultiplesOT" type="sf:SiNoType" minOccurs="0"/>
+</sequence>
+</complexType>
+<complexType name="IDFacturaExpedidaType">
+<sequence>
+<element name="IDEmisorFactura" type="sf:NIFType"/>
+<element name="NumSerieFactura" type="sf:TextoIDFacturaType"/>
+<element name="FechaExpedicionFactura" type="sf:fecha"/>
+</sequence>
+</complexType>
+<complexType name="IDFacturaARType">
+<sequence>
+<element name="IDEmisorFactura" type="sf:NIFType"/>
+<element name="NumSerieFactura" type="sf:TextoIDFacturaType"/>
+<element name="FechaExpedicionFactura" type="sf:fecha"/>
+</sequence>
+</complexType>
+<complexType name="DetalleType">
+<sequence>
+<element name="Impuesto" type="sf:ImpuestoType" minOccurs="0"/>
+<element name="ClaveRegimen" type="sf:IdOperacionesTrascendenciaTributariaType" minOccurs="0"/>
+<choice>
+<element name="CalificacionOperacion" type="sf:CalificacionOperacionType"/>
+<element name="OperacionExenta" type="sf:OperacionExentaType"/>
+</choice>
+<element name="TipoImpositivo" type="sf:Tipo2.2Type" minOccurs="0"/>
+<element name="BaseImponibleOimporteNoSujeto" type="sf:ImporteSgn12.2Type"/>
+<element name="BaseImponibleACoste" type="sf:ImporteSgn12.2Type" minOccurs="0"/>
+<element name="CuotaRepercutida" type="sf:ImporteSgn12.2Type" minOccurs="0"/>
+<element name="TipoRecargoEquivalencia" type="sf:Tipo2.2Type" minOccurs="0"/>
+<element name="CuotaRecargoEquivalencia" type="sf:ImporteSgn12.2Type" minOccurs="0"/>
+</sequence>
+</complexType>
+<complexType name="DesgloseRectificacionType">
+<sequence>
+<element name="BaseRectificada" type="sf:ImporteSgn12.2Type"/>
+<element name="CuotaRectificada" type="sf:ImporteSgn12.2Type"/>
+<element name="CuotaRecargoRectificado" type="sf:ImporteSgn12.2Type" minOccurs="0"/>
+</sequence>
+</complexType>
+<complexType name="PersonaFisicaJuridicaESType">
+<sequence>
+<element name="NombreRazon" type="sf:TextMax120Type"/>
+<element name="NIF" type="sf:NIFType"/>
+</sequence>
+</complexType>
+<complexType name="PersonaFisicaJuridicaType">
+<sequence>
+<element name="NombreRazon" type="sf:TextMax120Type"/>
+<choice>
+<element name="NIF" type="sf:NIFType"/>
+<element name="IDOtro" type="sf:IDOtroType"/>
+</choice>
+</sequence>
+</complexType>
+<complexType name="IDOtroType">
+<sequence>
+<element name="CodigoPais" type="sf:CountryType2" minOccurs="0"/>
+<element name="IDType" type="sf:PersonaFisicaJuridicaIDTypeType"/>
+<element name="ID" type="sf:TextMax20Type"/>
+</sequence>
+</complexType>
+<complexType name="RangoFechaExpedicionType">
+<sequence>
+<element name="Desde" type="sf:fecha" minOccurs="0"/>
+<element name="Hasta" type="sf:fecha" minOccurs="0"/>
+</sequence>
+</complexType>
+<complexType name="FechaExpedicionConsultaType">
+<choice>
+<element name="FechaExpedicionFactura" type="sf:fecha" minOccurs="0"/>
+<element name="RangoFechaExpedicion" type="sf:RangoFechaExpedicionType" minOccurs="0"/>
+</choice>
+</complexType>
+<complexType name="RegistroDuplicadoType">
+<sequence>
+<element name="IdPeticionRegistroDuplicado" type="sf:TextMax20Type"/>
+<element name="EstadoRegistroDuplicado" type="sf:EstadoRegistroSFType"/>
+<element name="CodigoErrorRegistro" type="sf:ErrorDetalleType" minOccurs="0"/>
+<element name="DescripcionErrorRegistro" type="sf:TextMax500Type" minOccurs="0"/>
+</sequence>
+</complexType>
+<simpleType name="VersionType">
+<restriction base="string">
+<enumeration value="1.0"/>
+</restriction>
+</simpleType>
+<simpleType name="YearType">
+<restriction base="string">
+<length value="4"/>
+<pattern value="\d{4,4}"/>
+</restriction>
+</simpleType>
+<simpleType name="TipoPeriodoType">
+<restriction base="string">
+<enumeration value="01"/>
+<enumeration value="02"/>
+<enumeration value="03"/>
+<enumeration value="04"/>
+<enumeration value="05"/>
+<enumeration value="06"/>
+<enumeration value="07"/>
+<enumeration value="08"/>
+<enumeration value="09"/>
+<enumeration value="10"/>
+<enumeration value="11"/>
+<enumeration value="12"/>
+</restriction>
+</simpleType>
+<simpleType name="TextoIDenvioType">
+<restriction base="string">
+<maxLength value="20"/>
+</restriction>
+</simpleType>
+<simpleType name="TextoIDFacturaType">
+<restriction base="string">
+<minLength value="1"/>
+<maxLength value="60"/>
+</restriction>
+</simpleType>
+<simpleType name="Tipo10Type">
+<restriction base="string">
+<pattern value="\d{0,10}"/>
+</restriction>
+</simpleType>
+<simpleType name="ImporteSgn12.2Type">
+<restriction base="string">
+<pattern value="(\+|-)?\d{1,12}(\.\d{0,2})?"/>
+</restriction>
+</simpleType>
+<simpleType name="ImporteSgn14.2Type">
+<restriction base="string">
+<pattern value="(\+|-)?\d{1,14}(\.\d{0,2})?"/>
+</restriction>
+</simpleType>
+<simpleType name="Tipo2.2Type">
+<restriction base="string">
+<pattern value="\d{1,3}(\.\d{0,2})?"/>
+</restriction>
+</simpleType>
+<simpleType name="Tipo3Type">
+<restriction base="string">
+<pattern value="\d{0,3}"/>
+</restriction>
+</simpleType>
+<simpleType name="Tipo6Type">
+<restriction base="string">
+<pattern value="\d{0,4}"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax1500Type">
+<restriction base="string">
+<maxLength value="1500"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax500Type">
+<restriction base="string">
+<maxLength value="500"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax250Type">
+<restriction base="string">
+<maxLength value="250"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax150Type">
+<restriction base="string">
+<maxLength value="150"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax120Type">
+<restriction base="string">
+<maxLength value="120"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax100Type">
+<restriction base="string">
+<maxLength value="100"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax70Type">
+<restriction base="string">
+<maxLength value="70"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax65Type">
+<restriction base="string">
+<maxLength value="65"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax60Type">
+<restriction base="string">
+<maxLength value="60"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax64Type">
+<restriction base="string">
+<maxLength value="64"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax40Type">
+<restriction base="string">
+<maxLength value="40"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax34Type">
+<restriction base="string">
+<maxLength value="34"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax20Type">
+<restriction base="string">
+<maxLength value="20"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax18Type">
+<restriction base="string">
+<maxLength value="18"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax15Type">
+<restriction base="string">
+<maxLength value="15"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax16Type">
+<restriction base="string">
+<maxLength value="16"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax25Type">
+<restriction base="string">
+<maxLength value="25"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax30Type">
+<restriction base="string">
+<maxLength value="30"/>
+</restriction>
+</simpleType>
+<simpleType name="ReferenciaCatastralType">
+<restriction base="string">
+<maxLength value="25"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax2Type">
+<restriction base="string">
+<maxLength value="2"/>
+</restriction>
+</simpleType>
+<simpleType name="TextMax50Type">
+<restriction base="string">
+<maxLength value="50"/>
+</restriction>
+</simpleType>
+<simpleType name="NIFType">
+<restriction base="string">
+<length value="9"/>
+</restriction>
+</simpleType>
+<simpleType name="fecha">
+<restriction base="string">
+<length value="10"/>
+<pattern value="\d{2,2}-\d{2,2}-\d{4,4}"/>
+</restriction>
+</simpleType>
+<simpleType name="Timestamp">
+<restriction base="string">
+<length value="19"/>
+<pattern value="\d{2,2}-\d{2,2}-\d{4,4} \d{2,2}:\d{2,2}:\d{2,2}"/>
+</restriction>
+</simpleType>
+<simpleType name="OperacionExentaType">
+<restriction base="string">
+<enumeration value="E1"/>
+<enumeration value="E2"/>
+<enumeration value="E3"/>
+<enumeration value="E4"/>
+<enumeration value="E5"/>
+<enumeration value="E6"/>
+<enumeration value="E7"/>
+<enumeration value="E8"/>
+</restriction>
+</simpleType>
+<simpleType name="ClaveTipoFacturaType">
+<restriction base="string">
+<enumeration value="F1"/>
+<enumeration value="F2"/>
+<enumeration value="R1"/>
+<enumeration value="R2"/>
+<enumeration value="R3"/>
+<enumeration value="R4"/>
+<enumeration value="R5"/>
+<enumeration value="F3"/>
+</restriction>
+</simpleType>
+<simpleType name="RechazoPrevioType">
+<restriction base="string">
+<enumeration value="N"/>
+<enumeration value="S"/>
+<enumeration value="X"/>
+</restriction>
+</simpleType>
+<simpleType name="RechazoPrevioAnulacionType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="N"/>
+</restriction>
+</simpleType>
+<simpleType name="SinRegistroPrevioType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="N"/>
+</restriction>
+</simpleType>
+<simpleType name="PrimerRegistroCadenaType">
+<restriction base="string">
+<enumeration value="S"/>
+</restriction>
+</simpleType>
+<simpleType name="SubsanacionType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="N"/>
+</restriction>
+</simpleType>
+<simpleType name="ClaveTipoRectificativaType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="I"/>
+</restriction>
+</simpleType>
+<simpleType name="TercerosODestinatarioType">
+<restriction base="string">
+<enumeration value="D"/>
+<enumeration value="T"/>
+</restriction>
+</simpleType>
+<simpleType name="SimplificadaCualificadaType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="N"/>
+</restriction>
+</simpleType>
+<simpleType name="CompletaSinDestinatarioType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="N"/>
+</restriction>
+</simpleType>
+<simpleType name="MacrodatoType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="N"/>
+</restriction>
+</simpleType>
+<simpleType name="IncidenciaType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="N"/>
+</restriction>
+</simpleType>
+<simpleType name="FinRequerimientoType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="N"/>
+</restriction>
+</simpleType>
+<simpleType name="MostrarSistemaInformaticoType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="N"/>
+</restriction>
+</simpleType>
+<simpleType name="MostrarNombreRazonEmisorType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="N"/>
+</restriction>
+</simpleType>
+<simpleType name="GeneradoPorType">
+<restriction base="string">
+<enumeration value="E"/>
+<enumeration value="D"/>
+<enumeration value="T"/>
+</restriction>
+</simpleType>
+<simpleType name="PersonaFisicaJuridicaIDTypeType">
+<restriction base="string">
+<enumeration value="02"/>
+<enumeration value="03"/>
+<enumeration value="04"/>
+<enumeration value="05"/>
+<enumeration value="06"/>
+<enumeration value="07"/>
+</restriction>
+</simpleType>
+<simpleType name="TipoHuellaType">
+<restriction base="string">
+<enumeration value="01"/>
+</restriction>
+</simpleType>
+<simpleType name="IdOperacionesTrascendenciaTributariaType">
+<restriction base="string">
+<enumeration value="01"/>
+<enumeration value="02"/>
+<enumeration value="03"/>
+<enumeration value="04"/>
+<enumeration value="05"/>
+<enumeration value="06"/>
+<enumeration value="07"/>
+<enumeration value="08"/>
+<enumeration value="09"/>
+<enumeration value="10"/>
+<enumeration value="11"/>
+<enumeration value="14"/>
+<enumeration value="15"/>
+<enumeration value="17"/>
+<enumeration value="18"/>
+<enumeration value="19"/>
+<enumeration value="20"/>
+<enumeration value="21"/>
+</restriction>
+</simpleType>
+<simpleType name="CountryType2">
+<restriction base="string">
+<enumeration value="AF"/>
+<enumeration value="AL"/>
+<enumeration value="DE"/>
+<enumeration value="AD"/>
+<enumeration value="AO"/>
+<enumeration value="AI"/>
+<enumeration value="AQ"/>
+<enumeration value="AG"/>
+<enumeration value="SA"/>
+<enumeration value="DZ"/>
+<enumeration value="AR"/>
+<enumeration value="AM"/>
+<enumeration value="AW"/>
+<enumeration value="AU"/>
+<enumeration value="AT"/>
+<enumeration value="AZ"/>
+<enumeration value="BS"/>
+<enumeration value="BH"/>
+<enumeration value="BD"/>
+<enumeration value="BB"/>
+<enumeration value="BE"/>
+<enumeration value="BZ"/>
+<enumeration value="BJ"/>
+<enumeration value="BM"/>
+<enumeration value="BY"/>
+<enumeration value="BO"/>
+<enumeration value="BA"/>
+<enumeration value="BW"/>
+<enumeration value="BV"/>
+<enumeration value="BR"/>
+<enumeration value="BN"/>
+<enumeration value="BG"/>
+<enumeration value="BF"/>
+<enumeration value="BI"/>
+<enumeration value="BT"/>
+<enumeration value="CV"/>
+<enumeration value="KY"/>
+<enumeration value="KH"/>
+<enumeration value="CM"/>
+<enumeration value="CA"/>
+<enumeration value="CF"/>
+<enumeration value="CC"/>
+<enumeration value="CO"/>
+<enumeration value="KM"/>
+<enumeration value="CG"/>
+<enumeration value="CD"/>
+<enumeration value="CK"/>
+<enumeration value="KP"/>
+<enumeration value="KR"/>
+<enumeration value="CI"/>
+<enumeration value="CR"/>
+<enumeration value="HR"/>
+<enumeration value="CU"/>
+<enumeration value="TD"/>
+<enumeration value="CZ"/>
+<enumeration value="CL"/>
+<enumeration value="CN"/>
+<enumeration value="CY"/>
+<enumeration value="CW"/>
+<enumeration value="DK"/>
+<enumeration value="DM"/>
+<enumeration value="DO"/>
+<enumeration value="EC"/>
+<enumeration value="EG"/>
+<enumeration value="AE"/>
+<enumeration value="ER"/>
+<enumeration value="SK"/>
+<enumeration value="SI"/>
+<enumeration value="ES"/>
+<enumeration value="US"/>
+<enumeration value="EE"/>
+<enumeration value="ET"/>
+<enumeration value="FO"/>
+<enumeration value="PH"/>
+<enumeration value="FI"/>
+<enumeration value="FJ"/>
+<enumeration value="FR"/>
+<enumeration value="GA"/>
+<enumeration value="GM"/>
+<enumeration value="GE"/>
+<enumeration value="GS"/>
+<enumeration value="GH"/>
+<enumeration value="GI"/>
+<enumeration value="GD"/>
+<enumeration value="GR"/>
+<enumeration value="GL"/>
+<enumeration value="GU"/>
+<enumeration value="GT"/>
+<enumeration value="GG"/>
+<enumeration value="GN"/>
+<enumeration value="GQ"/>
+<enumeration value="GW"/>
+<enumeration value="GY"/>
+<enumeration value="HT"/>
+<enumeration value="HM"/>
+<enumeration value="HN"/>
+<enumeration value="HK"/>
+<enumeration value="HU"/>
+<enumeration value="IN"/>
+<enumeration value="ID"/>
+<enumeration value="IR"/>
+<enumeration value="IQ"/>
+<enumeration value="IE"/>
+<enumeration value="IM"/>
+<enumeration value="IS"/>
+<enumeration value="IL"/>
+<enumeration value="IT"/>
+<enumeration value="JM"/>
+<enumeration value="JP"/>
+<enumeration value="JE"/>
+<enumeration value="JO"/>
+<enumeration value="KZ"/>
+<enumeration value="KE"/>
+<enumeration value="KG"/>
+<enumeration value="KI"/>
+<enumeration value="KW"/>
+<enumeration value="LA"/>
+<enumeration value="LS"/>
+<enumeration value="LV"/>
+<enumeration value="LB"/>
+<enumeration value="LR"/>
+<enumeration value="LY"/>
+<enumeration value="LI"/>
+<enumeration value="LT"/>
+<enumeration value="LU"/>
+<enumeration value="XG"/>
+<enumeration value="MO"/>
+<enumeration value="MK"/>
+<enumeration value="MG"/>
+<enumeration value="MY"/>
+<enumeration value="MW"/>
+<enumeration value="MV"/>
+<enumeration value="ML"/>
+<enumeration value="MT"/>
+<enumeration value="FK"/>
+<enumeration value="MP"/>
+<enumeration value="MA"/>
+<enumeration value="MH"/>
+<enumeration value="MU"/>
+<enumeration value="MR"/>
+<enumeration value="YT"/>
+<enumeration value="UM"/>
+<enumeration value="MX"/>
+<enumeration value="FM"/>
+<enumeration value="MD"/>
+<enumeration value="MC"/>
+<enumeration value="MN"/>
+<enumeration value="ME"/>
+<enumeration value="MS"/>
+<enumeration value="MZ"/>
+<enumeration value="MM"/>
+<enumeration value="NA"/>
+<enumeration value="NR"/>
+<enumeration value="CX"/>
+<enumeration value="NP"/>
+<enumeration value="NI"/>
+<enumeration value="NE"/>
+<enumeration value="NG"/>
+<enumeration value="NU"/>
+<enumeration value="NF"/>
+<enumeration value="NO"/>
+<enumeration value="NC"/>
+<enumeration value="NZ"/>
+<enumeration value="IO"/>
+<enumeration value="OM"/>
+<enumeration value="NL"/>
+<enumeration value="BQ"/>
+<enumeration value="PK"/>
+<enumeration value="PW"/>
+<enumeration value="PA"/>
+<enumeration value="PG"/>
+<enumeration value="PY"/>
+<enumeration value="PE"/>
+<enumeration value="PN"/>
+<enumeration value="PF"/>
+<enumeration value="PL"/>
+<enumeration value="PT"/>
+<enumeration value="PR"/>
+<enumeration value="QA"/>
+<enumeration value="GB"/>
+<enumeration value="RW"/>
+<enumeration value="RO"/>
+<enumeration value="RU"/>
+<enumeration value="RE"/>
+<enumeration value="SB"/>
+<enumeration value="SV"/>
+<enumeration value="WS"/>
+<enumeration value="AS"/>
+<enumeration value="KN"/>
+<enumeration value="SM"/>
+<enumeration value="SX"/>
+<enumeration value="PM"/>
+<enumeration value="VC"/>
+<enumeration value="SH"/>
+<enumeration value="LC"/>
+<enumeration value="ST"/>
+<enumeration value="SN"/>
+<enumeration value="RS"/>
+<enumeration value="SC"/>
+<enumeration value="SL"/>
+<enumeration value="SG"/>
+<enumeration value="SY"/>
+<enumeration value="SO"/>
+<enumeration value="LK"/>
+<enumeration value="SZ"/>
+<enumeration value="ZA"/>
+<enumeration value="SD"/>
+<enumeration value="SS"/>
+<enumeration value="SE"/>
+<enumeration value="CH"/>
+<enumeration value="SR"/>
+<enumeration value="TH"/>
+<enumeration value="TW"/>
+<enumeration value="TZ"/>
+<enumeration value="TJ"/>
+<enumeration value="PS"/>
+<enumeration value="TF"/>
+<enumeration value="TL"/>
+<enumeration value="TG"/>
+<enumeration value="TK"/>
+<enumeration value="TO"/>
+<enumeration value="TT"/>
+<enumeration value="TN"/>
+<enumeration value="TC"/>
+<enumeration value="TM"/>
+<enumeration value="TR"/>
+<enumeration value="TV"/>
+<enumeration value="UA"/>
+<enumeration value="UG"/>
+<enumeration value="UY"/>
+<enumeration value="UZ"/>
+<enumeration value="VU"/>
+<enumeration value="VA"/>
+<enumeration value="VE"/>
+<enumeration value="VN"/>
+<enumeration value="VG"/>
+<enumeration value="VI"/>
+<enumeration value="WF"/>
+<enumeration value="YE"/>
+<enumeration value="DJ"/>
+<enumeration value="ZM"/>
+<enumeration value="ZW"/>
+<enumeration value="QU"/>
+<enumeration value="XB"/>
+<enumeration value="XU"/>
+<enumeration value="XN"/>
+</restriction>
+</simpleType>
+<simpleType name="EstadoRegistroSFType">
+<restriction base="string">
+<enumeration value="Correcta"/>
+<enumeration value="AceptadaConErrores"/>
+<enumeration value="Anulada"/>
+</restriction>
+</simpleType>
+<simpleType name="ErrorDetalleType">
+<restriction base="integer"/>
+</simpleType>
+<simpleType name="CalificacionOperacionType">
+<restriction base="string">
+<enumeration value="S1"/>
+<enumeration value="S2"/>
+<enumeration value="N1"/>
+<enumeration value="N2"/>
+</restriction>
+</simpleType>
+<complexType name="DesgloseType">
+<sequence>
+<element name="DetalleDesglose" type="sf:DetalleType" maxOccurs="12"/>
+</sequence>
+</complexType>
+<simpleType name="SiNoType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="N"/>
+</restriction>
+</simpleType>
+<complexType name="ContraparteConsultaType">
+<sequence>
+<element name="NombreRazon" type="sf:TextMax120Type"/>
+<choice>
+<element name="NIF" type="sf:NIFType"/>
+<element name="IDOtro" type="sf:IDOtroType"/>
+</choice>
+</sequence>
+</complexType>
+<complexType name="CabeceraConsultaSf">
+<sequence>
+<element name="IDVersion" type="sf:VersionType"/>
+<choice>
+<element name="ObligadoEmision" type="sf:ObligadoEmisionConsultaType" minOccurs="0"/>
+<element name="Destinatario" type="sf:PersonaFisicaJuridicaESType" minOccurs="0"/>
+</choice>
+<element name="IndicadorRepresentante" type="sf:IndicadorRepresentanteType" minOccurs="0"/>
+</sequence>
+</complexType>
+<complexType name="ObligadoEmisionConsultaType">
+<sequence>
+<element name="NombreRazon" type="sf:TextMax120Type"/>
+<element name="NIF" type="sf:NIFType"/>
+</sequence>
+</complexType>
+<complexType name="ObligadoGeneracionType">
+<sequence>
+<element name="NombreRazon" type="sf:TextMax120Type"/>
+<element name="NIF" type="sf:NIFType"/>
+</sequence>
+</complexType>
+<simpleType name="Numerico4Type">
+<restriction base="string">
+<pattern value="\d{1,4}"/>
+</restriction>
+</simpleType>
+<simpleType name="CuponType">
+<restriction base="string">
+<enumeration value="S"/>
+<enumeration value="N"/>
+</restriction>
+</simpleType>
+<simpleType name="IndicadorRepresentanteType">
+<restriction base="string">
+<enumeration value="S"/>
+</restriction>
+</simpleType>
+<simpleType name="ImpuestoType">
+<restriction base="string">
+<enumeration value="01"/>
+<enumeration value="02"/>
+<enumeration value="03"/>
+<enumeration value="05"/>
+</restriction>
+</simpleType>
+<complexType name="OperacionType">
+<sequence>
+<element name="TipoOperacion" type="sf:TipoOperacionType"/>
+<element name="Subsanacion" type="sf:SubsanacionType" minOccurs="0"/>
+<element name="RechazoPrevio" type="sf:RechazoPrevioType" minOccurs="0"/>
+<element name="SinRegistroPrevio" type="sf:SinRegistroPrevioType" minOccurs="0"/>
+</sequence>
+</complexType>
+<simpleType name="TipoOperacionType">
+<restriction base="string">
+<enumeration value="Alta"/>
+<enumeration value="Anulacion"/>
+</restriction>
+</simpleType>
+</schema>

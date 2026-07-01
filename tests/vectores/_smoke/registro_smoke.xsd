@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ⚠️ ESQUEMA DE HUMO — NO es el XSD oficial de la AEAT.
+
+  Su único cometido es probar que la maquinaria de validación de Traazza
+  (traazza.validacion) funciona de extremo a extremo: que carga un XSD, que
+  acepta un RegistroAlta bien formado y que rechaza uno al que le falta un
+  campo obligatorio.
+
+  La validación "de verdad" contra el diseño oficial se hace colocando el
+  SuministroInformacion.xsd publicado por la AEAT en tests/vectores/ (ver el
+  README de esa carpeta). Este fichero NUNCA debe confundirse con el oficial.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:sum1="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd"
+           targetNamespace="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/tike/cont/ws/SuministroInformacion.xsd"
+           elementFormDefault="qualified">
+
+  <xs:element name="RegistroAlta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="IDVersion" type="xs:string"/>
+        <xs:element name="IDFactura">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IDEmisorFactura" type="xs:string"/>
+              <xs:element name="NumSerieFactura" type="xs:string"/>
+              <xs:element name="FechaExpedicionFactura" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- el resto de campos del registro, sin imponer su forma exacta -->
+        <xs:any namespace="##targetNamespace" processContents="lax"
+                minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="RegistroAnulacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="IDVersion" type="xs:string"/>
+        <xs:element name="IDFactura">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IDEmisorFacturaAnulada" type="xs:string"/>
+              <xs:element name="NumSerieFacturaAnulada" type="xs:string"/>
+              <xs:element name="FechaExpedicionFacturaAnulada" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:any namespace="##targetNamespace" processContents="lax"
+                minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

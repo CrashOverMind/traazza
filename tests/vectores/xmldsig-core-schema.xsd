@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Stub mínimo de http://www.w3.org/2000/09/xmldsig# para que el XSD oficial de
+  la AEAT compile sin acceso a la red. Solo declara el elemento `Signature`,
+  que en los registros es opcional (minOccurs="0") y que Traazza nunca emite
+  (la firma XAdES, si llega, será cosa de Fase 2). NO es el esquema xmldsig
+  completo del W3C; basta para resolver la referencia `ds:Signature`.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+           targetNamespace="http://www.w3.org/2000/09/xmldsig#"
+           elementFormDefault="qualified">
+  <xs:element name="Signature" type="xs:anyType"/>
+</xs:schema>

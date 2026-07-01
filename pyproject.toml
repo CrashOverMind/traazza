@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "traazza"
+version = "0.0.1"
+description = "Librería open-source para generar registros de facturación Verifactu (huella encadenada, QR y XML) en tu propio software, sin intermediarios."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Traazza" }]
+keywords = ["verifactu", "veri-factu", "aeat", "facturacion", "huella", "hash", "sif"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Natural Language :: Spanish",
+]
+dependencies = []
+
+[project.optional-dependencies]
+qr = ["segno>=1.6"]
+xsd = ["xmlschema>=3"]
+envio = ["requests>=2.31"]
+firma = ["signxml>=4", "lxml>=4.9", "cryptography>=41"]
+dev = ["pytest>=8", "segno>=1.6", "xmlschema>=3", "requests>=2.31", "signxml>=4", "lxml>=4.9", "cryptography>=41"]
+
+[project.urls]
+Homepage = "https://traazza.com"
+Source = "https://github.com/traazza/traazza"
+
+[project.scripts]
+traazza = "traazza.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/traazza"]
