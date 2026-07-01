@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "traazza"
-version = "0.0.1"
+version = "0.0.2"
 description = "Librería open-source para generar registros de facturación Verifactu (huella encadenada, QR y XML) en tu propio software, sin intermediarios."
 readme = "README.md"
 requires-python = ">=3.10"
